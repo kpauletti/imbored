@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.neonText {
+    color: #fff;
+    animation: neonPulse 1.5s infinite alternate; 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background-color: #000;
+}
+
+
+  @keyframes neonPulse {
+    100% {
+      /* Larger blur radius */
+      text-shadow:
+        0 0 4px #fff,
+        0 0 8px #fff,
+        0 0 12px #fff,
+        0 0 40px rgb(255, 0, 255),
+        0 0 80px rgb(255, 0, 255),
+        0 0 90px rgb(255, 0, 255),
+        0 0 100px rgb(255, 0, 255),
+        0 0 150px rgb(255, 0, 255);
+    }
+    0% {
+      /* Smaller blur radius */
+      text-shadow:
+        0 0 1px #fff,
+        0 0 2px #fff,
+        0 0 3px #fff,
+        0 0 5px rgb(255, 0, 255),
+        0 0 25px rgb(255, 0, 255),
+        0 0 50px rgb(255, 0, 255),
+        0 0 60px rgb(255, 0, 255),
+        0 0 70px rgb(255, 0, 255);
+    }
+  }

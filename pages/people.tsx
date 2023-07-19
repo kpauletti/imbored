@@ -1,8 +1,29 @@
-import { motion as m, useAnimate,  } from "framer-motion";
+import { motion as m, useAnimate } from "framer-motion";
 import { FaPerson, FaPeopleGroup } from "react-icons/fa6";
 import { GiLovers } from "react-icons/gi";
 import { yellowtail } from "../utils/fonts";
 import { useRouter } from "next/router";
+import PageTransition from "@/components/PageTransition";
+
+function Option({
+    id,
+    text,
+    onClick,
+    icon,
+}: {
+    id: string;
+    text: string;
+    onClick: () => void;
+    icon: React.ReactNode;
+}) {
+    return (
+        <m.div className="grow flex flex-col justify-center items-center" id={id} whileHover={{ scale: 1.1 }} onClick={onClick}>
+            <div className="p-1">{icon}</div>
+            <div className="w-[1px] h-10 bg-white"/>
+            <div className="text-center text-white font-medium tracking-wide">{text}</div>
+        </m.div>
+    );
+}
 
 export default function People() {
     const [scope, animate] = useAnimate();
@@ -13,72 +34,56 @@ export default function People() {
             element,
             {
                 opacity: [1, 0],
-                scale: [1, 50],
-                rotate: [0, 800],
-                y: [0, 150],
-                display: ["block", "none"],
+                scale: [1, 0.1],
+                rotate: [0, 140],
+                y: [0, 300],
+                display: ["block", "hidden"],
             },
-            { duration: 1.65 },
+            { duration: 0.5 }
         ).then(() => {
-            router.push("/style")
-        })
+            router.push("/style");
+        });
     };
 
     return (
-        <m.div
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 1 }}
-            initial={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="absolute top-0 left-0 w-screen h-screen text-white bg-black overflow-hidden"
-        >
-            <div
-                className={`${yellowtail.className} text-5xl text-center my-10`}
-            >
-                Headcount
-            </div>
-
+        <PageTransition>
             <div
                 ref={scope}
-                className="flex flex-col justify-between items-center gap-4"
+                className="flex flex-col items-center h-full"
             >
-                <m.div
+            <div className={`${yellowtail.className} text-5xl text-center my-10 neon-text-fuchsia`}>
+                Headcount
+            </div>
+            <div className="flex flex-col items-center h-full p-10">
+                <Option
                     id="ridin-solo"
-                    whileHover={{ scale: 1.1 }}
+                    text="Riding Solo"
+                    icon={<FaPerson  color="white" size={50} />}
                     onClick={() => {
                         handleClick("#ridin-solo");
                     }}
-                >
-                    <div className="border-white border-2 rounded p-8">
-                        <FaPerson color="white" size={50} />
-                    </div>
-                    <div className="text-center">Riding Solo</div>
-                </m.div>
-                <m.div
+                />
+
+                <Option
                     id="with-bae"
-                    whileHover={{ scale: 1.1 }}
+                    text="Hangin' With Bae"
+                    icon={<GiLovers color="white" size={50} />}
                     onClick={() => {
                         handleClick("#with-bae");
                     }}
-                >
-                    <div className="border-white border-2 rounded p-8">
-                        <GiLovers color="white" size={50} />
-                    </div>
-                    <div className="text-center">Chillin&apos; With Bae</div>
-                </m.div>
-                <m.div
+                />
+
+                <Option
                     id="da-squad"
-                    whileHover={{ scale: 1.1 }}
+                    text="With The Squad"
+                    icon={<FaPeopleGroup color="white" size={50} />}
                     onClick={() => {
                         handleClick("#da-squad");
                     }}
-                >
-                    <div className="border-white border-2 rounded p-8">
-                        <FaPeopleGroup color="white" size={50} />
-                    </div>
-                    <div className="text-center">With The Squad</div>
-                </m.div>
+                />
             </div>
-        </m.div>
+
+            </div>
+        </PageTransition>
     );
 }

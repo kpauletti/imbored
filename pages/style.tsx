@@ -3,6 +3,7 @@ import { motion as m, wrap } from "framer-motion";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { GiLovers } from "react-icons/gi";
 import { yellowtail } from "../utils/fonts";
+import PageTransition from "@/components/PageTransition";
 
 export default function Style() {
     const [[slide, direction], setSlide] = React.useState([0, 0]);
@@ -12,8 +13,9 @@ export default function Style() {
     };
 
     const slides = [
-        { image: "i", text: "Just Chillin" },
-        { image: "i", text: "Just Chillin2" },
+        { image: "i", text: "Chillin' at home. watching netflix, board games, video games, cooking" },
+        { image: "i", text: "Adventurous. Outdoorsy shit, hiking, rock climbing, going to the beach, exploring." },
+        { image: "i", text: "Rager. Don't give a shit as long as alcohol is involved" },
     ];
 
     const variants = {
@@ -40,13 +42,7 @@ export default function Style() {
     const slideIndex = wrap(0, slides.length, slide);
 
     return (
-        <m.div
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 1 }}
-            initial={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="absolute top-0 left-0 w-full h-full text-white bg-black overflow-hidden"
-        >
+        <PageTransition>
             <div className="flex flex-col w-full h-full items-center">
                 <div
                     className={`${yellowtail.className} text-5xl text-center my-10`}
@@ -61,7 +57,7 @@ export default function Style() {
                 </div>
 
                 <m.div
-                    className="border-white border-2 rounded h-40 grow text-center"
+                    className="border-white border-2 rounded h-full grow text-center flex flex-col justify-center items-center"
                     key={slide}
                     custom={direction}
                     variants={variants}
@@ -73,7 +69,8 @@ export default function Style() {
                         opacity: { duration: 0.2 },
                     }}
                 >
-                    {slides[slideIndex].text}
+                    <div className="border-white border-2 rounded h-4/5 w-4/5"  />
+                    <span className="text-sm">{slides[slideIndex].text}</span>
                 </m.div>
 
                 <div className="m-3">
@@ -82,6 +79,6 @@ export default function Style() {
                 </div>
 
             </div>
-        </m.div>
+        </PageTransition>
     );
 }
